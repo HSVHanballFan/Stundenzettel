@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class EinlesenCSVDatei {
 
-	
 	public static void main(String[] args) {
 	  String dateiname = "zeiten.csv";
 	  String startTime = "";
@@ -29,12 +28,12 @@ public class EinlesenCSVDatei {
 			
 			  for (String d : dateien) {
 			  		
-			  		if(d.contains(":") && isStarttime == true) {
+			  		if(d.contains(":") && isStarttime) {
 			  			
 			  			startTime = d;
 			  			isStarttime = false;
 			  			
-			  		}else if(d.contains(":") && isStarttime == false) {
+			  		}else if(d.contains(":") && !isStarttime) {
 			  			endTime = d;
 			  			isStarttime = true;
 			  			//Diff berechnen
@@ -53,12 +52,11 @@ public class EinlesenCSVDatei {
 	  	}
 	}
 	
-	
-	
+		
 	public static int berechneDifferenz(String startTime, String endTime) {
 		
-		int [] starttime = wandle_zeitstring_in_Integer(startTime);
-		int [] endtime = wandle_zeitstring_in_Integer(endTime);
+		int [] starttime = wandleZeitstringInInteger(startTime);
+		int [] endtime = wandleZeitstringInInteger(endTime);
 		int stunden = 0;
 		int minuten = 0;
 		
@@ -72,29 +70,23 @@ public class EinlesenCSVDatei {
 			stunden = stunden + minuten;
 		}
 		
-		//Die Pause abziehen
+		//Pause abziehen
 		int jobtime = stunden - 30;
 
 		
 		return jobtime;
 	}
 	
-	
-	
 	//08:00
-	public static int [] wandle_zeitstring_in_Integer(String zeit) {
+	public static int [] wandleZeitstringInInteger(String zeit) {
 		
 		int [] hm = new int[2];
-		//hier wir z.B. 08 und 00 in Array gespeichert
-		String [] stunde_minute = zeit.split(":");
+		//hier wird z.B. 08 und 00 in Array gespeichert
+		String [] stundeMinute = zeit.split(":");
 		
-		hm[0] = Integer.parseInt(stunde_minute[0]); // Speichere die Stunden als Integer
-		hm[1] = Integer.parseInt(stunde_minute[1]); // Speichere die Minuten als Integer
-		
-		
+		hm[0] = Integer.parseInt(stundeMinute[0]); // Speichere die Stunden als Integer
+		hm[1] = Integer.parseInt(stundeMinute[1]); // Speichere die Minuten als Integer
 		return hm;
-		
 	}
 	
-
 }
